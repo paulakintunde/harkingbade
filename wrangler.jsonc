@@ -15,12 +15,6 @@
     "TURNSTILE_ENFORCED": "false",
     "ANALYTICS_ENABLED": "false"
   },
-  "analytics_engine_datasets": [
-    {
-      "binding": "ANALYTICS",
-      "dataset": "harkingbade_events_local"
-    }
-  ],
   "secrets": {
     "required": [
       "CONTACT_WEBHOOK_URL",
@@ -47,12 +41,6 @@
         "TURNSTILE_ENFORCED": "false",
         "ANALYTICS_ENABLED": "false"
       },
-      "analytics_engine_datasets": [
-        {
-          "binding": "ANALYTICS",
-          "dataset": "harkingbade_events_staging"
-        }
-      ],
       "secrets": {
         "required": [
           "CONTACT_WEBHOOK_URL",
@@ -81,12 +69,6 @@
         "TURNSTILE_ENFORCED": "false",
         "ANALYTICS_ENABLED": "false"
       },
-      "analytics_engine_datasets": [
-        {
-          "binding": "ANALYTICS",
-          "dataset": "harkingbade_events_production"
-        }
-      ],
       "secrets": {
         "required": [
           "CONTACT_WEBHOOK_URL",

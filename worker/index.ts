@@ -21,7 +21,7 @@ export type NewsletterEnv = Pick<
 
 export type AnalyticsEnv = {
   ANALYTICS_ENABLED?: string;
-  ANALYTICS: AnalyticsEngineDataset;
+  ANALYTICS?: AnalyticsEngineDataset;
 };
 
 function json(data: unknown, status = 200, extraHeaders: HeadersInit = {}): Response {
@@ -75,7 +75,7 @@ export async function submitAnalyticsEvent(
     return json({ ok: false, error: validation.error ?? 'Invalid analytics event.' }, 422);
   }
 
-  if (`${env.ANALYTICS_ENABLED}` !== 'true') return noContent();
+  if (`${env.ANALYTICS_ENABLED}` !== 'true' || !env.ANALYTICS) return noContent();
 
   try {
     env.ANALYTICS.writeDataPoint(

@@ -15,15 +15,6 @@
     "TURNSTILE_ENFORCED": "false",
     "ANALYTICS_ENABLED": "false"
   },
-  "secrets": {
-    "required": [
-      "CONTACT_WEBHOOK_URL",
-      "CONTACT_WEBHOOK_TOKEN",
-      "NEWSLETTER_WEBHOOK_URL",
-      "NEWSLETTER_WEBHOOK_TOKEN",
-      "TURNSTILE_SECRET_KEY"
-    ]
-  },
   "observability": {
     "enabled": true,
     "head_sampling_rate": 1
@@ -40,15 +31,6 @@
       "vars": {
         "TURNSTILE_ENFORCED": "false",
         "ANALYTICS_ENABLED": "false"
-      },
-      "secrets": {
-        "required": [
-          "CONTACT_WEBHOOK_URL",
-          "CONTACT_WEBHOOK_TOKEN",
-          "NEWSLETTER_WEBHOOK_URL",
-          "NEWSLETTER_WEBHOOK_TOKEN",
-          "TURNSTILE_SECRET_KEY"
-        ]
       }
     },
     "production": {
@@ -68,15 +50,6 @@
       "vars": {
         "TURNSTILE_ENFORCED": "false",
         "ANALYTICS_ENABLED": "false"
-      },
-      "secrets": {
-        "required": [
-          "CONTACT_WEBHOOK_URL",
-          "CONTACT_WEBHOOK_TOKEN",
-          "NEWSLETTER_WEBHOOK_URL",
-          "NEWSLETTER_WEBHOOK_TOKEN",
-          "TURNSTILE_SECRET_KEY"
-        ]
       }
     }
   }

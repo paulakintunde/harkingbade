@@ -11,18 +11,27 @@ import {
   validateAnalyticsEvent,
 } from './analytics';
 
+export type WorkerEnv = {
+  ASSETS: Fetcher;
+  TURNSTILE_ENFORCED?: string;
+  ANALYTICS_ENABLED?: string;
+  CONTACT_WEBHOOK_URL?: string;
+  CONTACT_WEBHOOK_TOKEN?: string;
+  NEWSLETTER_WEBHOOK_URL?: string;
+  NEWSLETTER_WEBHOOK_TOKEN?: string;
+  TURNSTILE_SECRET_KEY?: string;
+  ANALYTICS?: AnalyticsEngineDataset;
+};
+
 export type NewsletterEnv = Pick<
-  Env,
+  WorkerEnv,
   | 'TURNSTILE_ENFORCED'
   | 'TURNSTILE_SECRET_KEY'
   | 'NEWSLETTER_WEBHOOK_URL'
   | 'NEWSLETTER_WEBHOOK_TOKEN'
 >;
 
-export type AnalyticsEnv = {
-  ANALYTICS_ENABLED?: string;
-  ANALYTICS?: AnalyticsEngineDataset;
-};
+export type AnalyticsEnv = Pick<WorkerEnv, 'ANALYTICS_ENABLED' | 'ANALYTICS'>;
 
 function json(data: unknown, status = 200, extraHeaders: HeadersInit = {}): Response {
   return Response.json(data, {
@@ -94,7 +103,7 @@ export async function submitAnalyticsEvent(
   return noContent();
 }
 
-async function submitContact(request: Request, env: Env): Promise<Response> {
+async function submitContact(request: Request, env: WorkerEnv): Promise<Response> {
   if (!isAllowedOrigin(request)) return json({ ok: false, error: 'Origin not allowed.' }, 403);
 
   let body: string;
@@ -119,7 +128,7 @@ async function submitContact(request: Request, env: Env): Promise<Response> {
   const human = turnstileIsEnforced
     ? await verifyTurnstile(
         payload.turnstileToken,
-        env.TURNSTILE_SECRET_KEY,
+        env.TURNSTILE_SECRET_KEY ?? '',
         request.headers.get('CF-Connecting-IP'),
       )
     : true;
@@ -187,7 +196,7 @@ export async function submitNewsletter(
   const human = turnstileIsEnforced
     ? await verifyTurnstile(
         payload.turnstileToken,
-        env.TURNSTILE_SECRET_KEY,
+        env.TURNSTILE_SECRET_KEY ?? '',
         request.headers.get('CF-Connecting-IP'),
       )
     : true;
@@ -276,4 +285,4 @@ export default {
       return json({ ok: false, error: 'Unexpected server error.', requestId }, 500);
     }
   },
-} satisfies ExportedHandler<Env>;
+} satisfies ExportedHandler<WorkerEnv>;

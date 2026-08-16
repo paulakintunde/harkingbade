@@ -1,0 +1,67 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  publishedAt: Date;
+  updatedAt?: Date | undefined;
+  pillar: string;
+  evidenceType: string;
+  status: string;
+  canonical?: string | undefined;
+  sources?: string[] | undefined;
+}
+const { title, description, publishedAt, updatedAt, pillar, evidenceType, status, canonical, sources = [] } = Astro.props;
+const articleUrl = canonical ?? new URL(Astro.url.pathname, site.url).toString();
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  datePublished: publishedAt.toISOString(),
+  dateModified: (updatedAt ?? publishedAt).toISOString(),
+  mainEntityOfPage: articleUrl,
+  image: `${site.url}/og-default.png`,
+  author: { '@id': `${site.url}/#organization` },
+  publisher: { '@id': `${site.url}/#organization` },
+  ...(sources.length > 0 ? { citation: sources } : {}),
+};
+---
+
+<BaseLayout title={`${title} — ${site.name}`} {description} canonical={articleUrl} pageType="article" structuredData={schema}>
+  <article>
+    <header class="article-hero">
+      <div class="narrow stack-lg">
+        <div class="meta">
+          <span>{pillar}</span>
+          <span>{evidenceType}</span>
+          <span>{status}</span>
+        </div>
+        <h1>{title}</h1>
+        <p class="lede">{description}</p>
+        <div class="meta">
+          <time datetime={publishedAt.toISOString()}>Published {publishedAt.toLocaleDateString('en-CA', { dateStyle: 'long' })}</time>
+          {updatedAt && <time datetime={updatedAt.toISOString()}>Updated {updatedAt.toLocaleDateString('en-CA', { dateStyle: 'long' })}</time>}
+        </div>
+        {status === 'in-progress' && <div class="notice"><strong>Live working note</strong>This page will change when the evidence changes. Material updates are dated above.</div>}
+      </div>
+    </header>
+    <div class="narrow article-body prose"><slot /></div>
+  </article>
+  <section class="section section--lime">
+    <div class="narrow stack-lg">
+      <p class="eyebrow">Continue the conversation</p>
+      <h2>Have a similar problem?</h2>
+      <p class="lede">Bring the context, constraints, and desired outcome. The first response will tell you whether Harkingbade is a useful fit.</p>
+      <div><a class="button" href="/contact/">Share the brief</a></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .article-hero { padding-block: clamp(5rem, 10vw, 9rem) clamp(3.5rem, 7vw, 6rem); border-bottom: 1px solid var(--line); }
+  .article-hero h1 { font-size: clamp(3rem, 7vw, 6rem); }
+  .article-body { padding-block: clamp(3.5rem, 7vw, 6rem); }
+</style>

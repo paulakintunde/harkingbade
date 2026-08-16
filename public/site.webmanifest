@@ -1,0 +1,17 @@
+{
+  "name": "Harkingbade",
+  "short_name": "Harkingbade",
+  "description": "Product strategy, positioning, growth, content, and hands-on web delivery.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f0e7",
+  "theme_color": "#17211c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

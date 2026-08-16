@@ -1,0 +1,132 @@
+---
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+<form class="newsletter-form" action="/api/newsletter" method="post" data-newsletter-form>
+  <div class="signup-row">
+    <label>
+      <span>Email address</span>
+      <input
+        name="email"
+        type="email"
+        autocomplete="email"
+        inputmode="email"
+        placeholder="you@example.com"
+        required
+      />
+    </label>
+    <button class="button" type="submit">Request subscription</button>
+  </div>
+
+  <label class="consent">
+    <input name="consent" type="checkbox" value="subscribe" required />
+    <span>
+      Email me the Harkingbade Field Note. I understand that I can unsubscribe at any time and
+      that my information is handled under the <a href="/privacy/">privacy policy</a>.
+    </span>
+  </label>
+
+  <label class="honeypot" aria-hidden="true">
+    <span>Website</span>
+    <input name="website" tabindex="-1" autocomplete="off" />
+  </label>
+  <input name="source" type="hidden" value={Astro.url.pathname} />
+  {turnstileSiteKey && (
+    <>
+      <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>
+      <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    </>
+  )}
+
+  <p class="form-status" role="status" aria-live="polite" data-newsletter-status></p>
+</form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-newsletter-form]');
+  const status = document.querySelector<HTMLElement>('[data-newsletter-status]');
+  const emitAnalytics = (event: string, properties: Record<string, string>) => {
+    document.dispatchEvent(new CustomEvent('harkingbade:track', { detail: { event, properties } }));
+  };
+  let newsletterStarted = false;
+
+  if (form) {
+    form.dataset.enhanced = 'true';
+    const source = form.elements.namedItem('source');
+    if (source instanceof HTMLInputElement) {
+      source.value = `${window.location.pathname}${window.location.search}`;
+    }
+  }
+
+  form?.addEventListener('focusin', () => {
+    if (newsletterStarted) return;
+    newsletterStarted = true;
+    emitAnalytics('newsletter_intent', {
+      source_page: window.location.pathname,
+      method: 'email',
+    });
+  });
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity() || !status) return;
+
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (button) button.disabled = true;
+    status.dataset.state = 'pending';
+    status.textContent = 'Requesting subscription…';
+
+    try {
+      const params = new URLSearchParams();
+      for (const [key, value] of new FormData(form).entries()) {
+        if (typeof value === 'string') params.append(key, value);
+      }
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        body: params,
+      });
+      const result = (await response.json()) as { ok?: boolean; message?: string; error?: string };
+      status.dataset.state = result.ok ? 'success' : 'error';
+      status.textContent = result.ok
+        ? (result.message ?? 'Subscription requested.')
+        : (result.error ?? 'Unable to subscribe.');
+      emitAnalytics(
+        result.ok ? 'newsletter_subscribe_success' : 'newsletter_subscribe_error',
+        {
+          source_page: window.location.pathname,
+          ...(result.ok
+            ? { consent_version: 'field-note-v1-2026-08-16' }
+            : { error_class: `http_${response.status}` }),
+        },
+      );
+      if (result.ok) form.reset();
+    } catch {
+      status.dataset.state = 'error';
+      status.textContent = 'Unable to subscribe right now. Please follow by RSS and try again later.';
+      emitAnalytics('newsletter_subscribe_error', {
+        source_page: window.location.pathname,
+        error_class: 'network',
+      });
+    } finally {
+      if (button) button.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  .newsletter-form { display: grid; gap: 1.15rem; padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--ink); border-radius: var(--radius); color: var(--ink); background: var(--paper-2); box-shadow: .55rem .55rem 0 var(--lime); }
+  .signup-row { display: grid; gap: .8rem; grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
+  label { display: grid; gap: .45rem; }
+  label > span { font-size: .8rem; font-weight: 850; }
+  input[type='email'] { width: 100%; min-height: 3.25rem; padding: .65rem .75rem; border: 1px solid var(--line); border-radius: .45rem; color: var(--ink); background: #fff; }
+  input:focus { border-color: var(--blue); outline: 2px solid var(--blue); outline-offset: 1px; }
+  .consent { grid-template-columns: auto 1fr; align-items: start; gap: .7rem; }
+  .consent input { width: 1.05rem; height: 1.05rem; margin-top: .12rem; accent-color: var(--blue); }
+  .consent span { color: var(--ink-2); font-size: .78rem; font-weight: 550; line-height: 1.55; }
+  .honeypot { position: absolute; left: -9999px; }
+  .form-status { min-height: 1.5rem; margin: 0; font-size: .85rem; font-weight: 750; }
+  .form-status[data-state='error'] { color: #a52912; }
+  .form-status[data-state='success'] { color: #176735; }
+  button:disabled { cursor: wait; opacity: .55; }
+  @media (max-width: 650px) { .signup-row { grid-template-columns: 1fr; } .signup-row .button { width: 100%; } }
+</style>

@@ -1,0 +1,168 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import StageGrid from '../components/StageGrid.astro';
+
+const featuredWork = await getCollection('work', ({ data }) => data.featured && !data.draft);
+const featuredInsights = (await getCollection('insight', ({ data }) => data.featured && !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 2);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Product strategy · Positioning · Growth · Build</p>
+        <h1>I turn unclear digital opportunities into <em>products people choose.</em></h1>
+        <p class="lede">I connect customer insight, product strategy, brand, content, and hands-on delivery—so teams can decide what to build, launch it clearly, and grow it with evidence.</p>
+        <div class="button-row">
+          <a class="button" href="/work/" data-track-event="cta_click" data-track-cta="home-work" data-track-audience="proof">See the work</a>
+          <a class="button button--ghost" href="/services/" data-track-event="cta_click" data-track-cta="home-services" data-track-audience="services">Work with me</a>
+        </div>
+        <a class="career-link" href="/career/" data-track-event="career_intent">Hiring? View the career profile <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="hero-board" aria-label="Harkingbade connects product, brand, build, and growth">
+        <div class="board-head"><span>HB / SYSTEM 01</span><span>LIVE</span></div>
+        <div class="board-core"><span>INSIGHT</span><strong>→</strong><span>PRODUCT</span><strong>→</strong><span>DEMAND</span></div>
+        <div class="board-corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <p>One learning loop.<br />Fewer broken handoffs.</p>
+      </div>
+    </div>
+    <div class="container signal-strip" aria-label="Current operating principles">
+      <span>Proof over claims</span><span>Decisions over deliverables</span><span>Owned audience over platform dependence</span><span>Static-first by default</span>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Selected work"
+        title="The work is the evidence."
+        description="Case studies show the context, constraints, decisions, artifacts, and measured result—including what remains unproven."
+      />
+      <div class="card-grid">
+        {featuredWork.map((entry) => (
+          <article class="card card--wide card--ink">
+            <div class="meta"><span class="tag">{entry.data.status}</span><span>Live case study</span></div>
+            <div>
+              <h3><a class="card-link" href={`/work/${entry.id}/`}>{entry.data.title}</a></h3>
+              <p>{entry.data.description}</p>
+            </div>
+          </article>
+        ))}
+        <aside class="card card--small card--lime">
+          <div class="meta"><span>Evidence standard</span></div>
+          <div>
+            <h3>No invented wins.</h3>
+            <p>Unknown metrics stay unknown. Work in progress is labelled. Material updates are dated.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="container">
+      <SectionHeading
+        eyebrow="The operating model"
+        title="One system from opportunity to growth."
+        description="The 4D system keeps research, strategy, positioning, delivery, and distribution connected to the same customer evidence."
+      />
+      <StageGrid />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Ways to work together"
+        title="Start with the decision that matters."
+        description="Bounded engagements for lean teams with a product, offer, or customer journey that is unclear, stalled, or underperforming."
+      />
+      <div class="offer-list">
+        <a href="/services/#diagnostic" data-track-event="cta_click" data-track-cta="home-diagnostic" data-track-audience="services"><span>01</span><strong>Product & Growth Diagnostic</strong><em>Find the constraint</em><b>↗</b></a>
+        <a href="/services/#launch" data-track-event="cta_click" data-track-cta="home-launch" data-track-audience="services"><span>02</span><strong>Position-to-Launch Sprint</strong><em>Clarify and ship</em><b>↗</b></a>
+        <a href="/services/#conversion" data-track-event="cta_click" data-track-cta="home-conversion" data-track-audience="services"><span>03</span><strong>Conversion & Growth Sprint</strong><em>Fix the journey</em><b>↗</b></a>
+        <a href="/services/#fractional" data-track-event="cta_click" data-track-cta="home-fractional" data-track-audience="services"><span>04</span><strong>Fractional Product & Growth</strong><em>Own the loop</em><b>↗</b></a>
+      </div>
+      <div class="button-row"><a class="button button--ghost" href="/resources/4d-diagnostic/" data-track-event="resource_use" data-track-resource="4d-diagnostic" data-track-action="open">Take the free 4D diagnostic</a></div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Field notes"
+        title="Useful ideas, attached to evidence."
+        description="Frameworks, implementation notes, teardowns, and experiments across Decide, Position, Build, and Grow."
+      />
+      <div class="card-grid">
+        {featuredInsights.map((entry, index) => (
+          <article class:list={['card', 'card--half', index === 1 && 'card--coral']}>
+            <div class="meta"><span>{entry.data.pillar}</span><span>{entry.data.evidenceType}</span></div>
+            <div>
+              <h3><a class="card-link" href={`/insights/${entry.id}/`}>{entry.data.title}</a></h3>
+              <p>{entry.data.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="button-row"><a class="button button--ghost" href="/insights/">Browse all insights</a></div>
+    </div>
+  </section>
+
+  <section class="section section--lime">
+    <div class="container cta-grid">
+      <div>
+        <p class="eyebrow">A useful first conversation</p>
+        <h2>Bring the context.<br />Leave with a clearer next move.</h2>
+      </div>
+      <div class="flow-end stack-lg">
+        <p class="lede">Share the customer, constraint, and desired outcome. The first response will be candid about fit, evidence needed, and the smallest useful engagement.</p>
+        <div><a class="button" href="/contact/" data-track-event="cta_click" data-track-cta="home-contact" data-track-audience="services">Start a conversation</a></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { padding-top: clamp(4.5rem, 10vw, 9rem); overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(18rem, .75fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .hero-copy h1 { max-width: 63rem; font-size: clamp(3.5rem, 7.7vw, 7.4rem); }
+  .hero-copy h1 em { position: relative; color: var(--blue); font-style: italic; }
+  .hero-copy .lede { margin-top: 2rem; }
+  .career-link { display: inline-flex; margin-top: 1.5rem; gap: .65rem; align-items: center; font-size: .82rem; font-weight: 800; }
+  .career-link span { color: var(--blue); font-size: 1.3rem; }
+  .hero-board { position: relative; min-height: 31rem; padding: 1.25rem; overflow: hidden; border: 2px solid var(--ink); border-radius: 50% 50% 1rem 1rem; background: var(--coral); box-shadow: 1rem 1rem 0 var(--lime); transform: rotate(1.5deg); }
+  .hero-board::before { position: absolute; inset: 15%; border: 1px solid var(--ink); border-radius: 50%; content: ''; }
+  .hero-board::after { position: absolute; top: 50%; right: -10%; left: -10%; height: 2px; background: var(--ink); content: ''; transform: rotate(-18deg); }
+  .board-head { position: relative; z-index: 2; display: flex; justify-content: space-between; font-family: var(--mono); font-size: .67rem; font-weight: 800; letter-spacing: .08em; }
+  .board-head span:last-child { padding: .15rem .4rem; border: 1px solid var(--ink); border-radius: 999px; background: var(--lime); }
+  .board-core { position: absolute; z-index: 2; top: 48%; right: 1rem; left: 1rem; display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; font-family: var(--mono); font-size: .72rem; font-weight: 900; text-align: center; }
+  .board-core strong { font-size: 1.5rem; }
+  .hero-board > p { position: absolute; z-index: 2; right: 1.5rem; bottom: 1.5rem; font-family: var(--serif); font-size: 1.65rem; font-style: italic; line-height: 1.05; text-align: right; }
+  .signal-strip { display: flex; margin-top: clamp(4rem, 8vw, 7rem); border-top: 1px solid var(--ink); border-left: 1px solid var(--ink); }
+  .signal-strip span { flex: 1; padding: .8rem; border-right: 1px solid var(--ink); font-family: var(--mono); font-size: .65rem; font-weight: 800; letter-spacing: .04em; text-align: center; text-transform: uppercase; }
+  .offer-list { border-top: 1px solid var(--ink); }
+  .offer-list a { display: grid; padding: 1.35rem .5rem; grid-template-columns: 4rem minmax(0, 1.3fr) minmax(10rem, .7fr) auto; gap: 1rem; align-items: center; border-bottom: 1px solid var(--ink); text-decoration: none; transition: padding .18s ease, background .18s ease; }
+  .offer-list a:hover { padding-inline: 1.25rem; background: var(--lime); }
+  .offer-list span { font-family: var(--mono); font-size: .75rem; }
+  .offer-list strong { font-size: clamp(1.2rem, 2.2vw, 1.8rem); }
+  .offer-list em { color: var(--ink-2); }
+  .offer-list b { color: var(--blue); font-size: 1.4rem; }
+  .cta-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .85fr); gap: 3rem; }
+  @media (max-width: 900px) {
+    .hero-grid, .cta-grid { grid-template-columns: 1fr; }
+    .hero-board { min-height: 22rem; }
+    .signal-strip { display: grid; grid-template-columns: 1fr 1fr; }
+    .signal-strip span { border-bottom: 1px solid var(--ink); }
+  }
+  @media (max-width: 650px) {
+    .offer-list a { grid-template-columns: 2rem 1fr auto; }
+    .offer-list em { display: none; }
+    .signal-strip { grid-template-columns: 1fr; }
+  }
+</style>

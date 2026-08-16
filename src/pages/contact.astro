@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site } from '../data/site';
+const contactFormEnabled = import.meta.env.PUBLIC_CONTACT_FORM_ENABLED === 'true';
+---
+
+<BaseLayout title={`Contact — ${site.name}`} description="Share a product, growth, launch, conversion, fractional, or career opportunity with Harkingbade.">
+  <header class="page-hero container">
+    <p class="eyebrow">Start a conversation</p>
+    <h1>Bring the context.<br /><span class="accent">Find the next move.</span></h1>
+    <p class="lede">Useful briefs describe the customer, current situation, consequence, constraint, evidence available, and desired outcome. A polished requirements document is not required.</p>
+  </header>
+  <section class="section section--paper">
+    <div class="container split contact-grid">
+      <div class="stack-lg">
+        <div><p class="eyebrow">A good fit</p><h2>Consequential, cross-functional problems.</h2></div>
+        <ul class="fit-list"><li>A product or offer nobody can explain consistently.</li><li>A launch without aligned customer evidence or measurement.</li><li>Traffic or awareness that does not become meaningful action.</li><li>A lean team with a gap between strategy and delivery.</li><li>A role requiring product, market, growth, and execution judgment.</li></ul>
+        <p class="muted">No confidential information is needed in the first note. Do not submit passwords, account credentials, customer records, or proprietary datasets.</p>
+      </div>
+      {contactFormEnabled ? (
+        <ContactForm />
+      ) : (
+        <aside class="contact-route stack" data-contact-mode="email-only">
+          <p class="eyebrow">Direct route</p>
+          <h2>The brief form is paused.</h2>
+          <p>The public form stays off until its delivery destination has passed an end-to-end test. For a role, project, or useful introduction, email the context directly.</p>
+          <p><a class="button" href={`mailto:${site.email}`} data-track-event="cta_click" data-track-cta="contact-email" data-track-audience="contact">Email {site.email}</a></p>
+          <p class="muted">Do not include passwords, private customer data, account credentials, or confidential attachments in the first message.</p>
+        </aside>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid { align-items: start; }
+  .fit-list { display: grid; gap: .8rem; list-style: none; }
+  .fit-list li { padding: 1rem 0 1rem 2rem; border-bottom: 1px solid var(--line); background: linear-gradient(var(--blue), var(--blue)) .2rem 1.65rem / 1rem 2px no-repeat; }
+  .contact-route { padding: clamp(1.35rem, 3.5vw, 2.5rem); border: 1px solid var(--ink); border-radius: var(--radius); background: var(--paper-2); box-shadow: .65rem .65rem 0 var(--lime); }
+  .contact-route h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
+  .contact-route .button { overflow-wrap: anywhere; }
+</style>

@@ -1,0 +1,59 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('work', ({ data }) => !data.draft);
+  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+interface Props { entry: CollectionEntry<'work'> }
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const url = new URL(`/work/${entry.id}/`, site.url).toString();
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: entry.data.title,
+  description: entry.data.description,
+  url,
+  dateCreated: entry.data.startedAt.toISOString(),
+  dateModified: entry.data.updatedAt.toISOString(),
+  creator: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout title={`${entry.data.title} — ${site.name}`} description={entry.data.description} canonical={url} structuredData={schema}>
+  <article>
+    <header class="case-hero section--ink" data-track-view-event="work_view" data-track-work={entry.id} data-track-status={entry.data.status}>
+      <div class="container">
+        <div class="case-kicker">
+          <span class="tag">{entry.data.status}</span>
+          <span>{entry.data.disciplines.join(' · ')}</span>
+        </div>
+        <h1>{entry.data.title}</h1>
+        <div class="case-summary split">
+          <p class="lede">{entry.data.description}</p>
+          <dl>
+            <div><dt>Intended outcome</dt><dd>{entry.data.outcome}</dd></div>
+            <div><dt>Evidence status</dt><dd>{entry.data.evidenceNote}</dd></div>
+          </dl>
+        </div>
+      </div>
+    </header>
+    <div class="narrow case-body prose"><Content /></div>
+  </article>
+</BaseLayout>
+
+<style>
+  .case-hero { padding-block: clamp(5rem, 11vw, 9rem); }
+  .case-kicker { display: flex; margin-bottom: 2rem; gap: 1rem; align-items: center; color: #cbd5cd; font-family: var(--mono); font-size: .73rem; text-transform: uppercase; }
+  h1 { max-width: 70rem; font-size: clamp(3.2rem, 8vw, 7.5rem); }
+  .case-summary { margin-top: clamp(2.5rem, 6vw, 5rem); padding-top: 2rem; border-top: 1px solid #536258; }
+  dl { display: grid; gap: 1.5rem; }
+  dl div { display: grid; gap: .35rem; }
+  dt { color: var(--lime); font-family: var(--mono); font-size: .7rem; font-weight: 800; text-transform: uppercase; }
+  dd { color: #e4eae5; }
+  .case-body { padding-block: clamp(4rem, 8vw, 7rem); }
+</style>

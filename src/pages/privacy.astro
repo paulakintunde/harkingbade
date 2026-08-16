@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title={`Privacy — ${site.name}`}
+  description="How Harkingbade handles contact, analytics, and subscriber information."
+>
+  <article class="page-hero narrow prose">
+    <p class="eyebrow">Legal</p>
+    <h1>Privacy</h1>
+    <div class="notice">
+      <strong>Working launch policy</strong>
+      This policy must be reviewed before analytics collection, newsletter delivery, advertising,
+      payments, or a CRM are activated for a live market.
+    </div>
+
+    <h2>Information you submit</h2>
+    <p>When you use the contact form, Harkingbade receives the name, email address, company, interest, message, page source, and technical delivery information needed to process the request. When email subscription is enabled, Harkingbade receives your email address, the source page, the consent text version, the consent timestamp, and delivery information needed to manage the subscription. Do not submit sensitive credentials or regulated personal information.</p>
+
+    <h2>Measurement controls</h2>
+    <p>The site contains a launch-gated Cloudflare measurement path for traffic performance and a small allow-list of commercial events such as service views, career intent, diagnostic completion, and contact delivery status. The custom event endpoint does not accept names, email addresses, companies, messages, résumé information, full URL query strings, cookies, fingerprints, or persistent visitor identifiers. Browser event collection is suppressed when Global Privacy Control or Do Not Track is enabled.</p>
+    <p>Custom event collection is disabled until the production provider, target markets, retention, access, and disclosure review is complete. These technical controls minimize collection; they are not a claim that one policy is sufficient for every jurisdiction.</p>
+
+    <h2>Why information is used</h2>
+    <p>Contact information is used to respond to the request, evaluate fit, prevent abuse, maintain delivery reliability, and keep necessary business records. Subscriber information is used only to send the requested Harkingbade Field Note, manage consent and unsubscribe requests, prevent abuse, and measure delivery reliability. It is not sold. If enabled, bounded analytics are used to understand site reliability, useful content, and whether career, service, resource, or audience routes create meaningful opportunities.</p>
+
+    <h2>Service providers</h2>
+    <p>The site is intended to use Cloudflare for delivery, request processing, and the gated measurement architecture described above. A contact-delivery or newsletter provider may process submitted information only after its role, retention behaviour, unsubscribe path, and applicable data location are reviewed. Advertising, payment, CRM, or additional analytics providers may be added only after this policy and consent behaviour are updated.</p>
+
+    <h2>Retention and requests</h2>
+    <p>Contact records should be retained only as long as needed for the conversation, legitimate business records, security, and legal obligations. Subscriber records should be retained while consent remains active and as minimally required to honour suppression or unsubscribe requests. Every marketing email must provide an unsubscribe method. To request access, correction, deletion, or unsubscribe assistance, email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+    <h2>Last updated</h2>
+    <p>August 16, 2026.</p>
+  </article>
+</BaseLayout>

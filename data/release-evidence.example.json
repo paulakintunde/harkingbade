@@ -1,0 +1,47 @@
+{
+  "version": "harkingbade-release-evidence-v1",
+  "operator": "",
+  "reviewedAt": "",
+  "cloudflare": {
+    "accountAndZoneConfirmed": false,
+    "accountAndZoneEvidence": "",
+    "currentRouteInspected": false,
+    "rollbackSnapshotCaptured": false,
+    "rollbackSnapshotReference": ""
+  },
+  "staging": {
+    "url": "",
+    "smokePassed": false,
+    "noindexVerified": false,
+    "evidenceReference": ""
+  },
+  "contact": {
+    "launchMode": "unconfirmed",
+    "productionDeliveryVerified": false,
+    "publicAddressVerified": false,
+    "pageUpdatedForMode": false,
+    "evidenceReference": ""
+  },
+  "newsletter": {
+    "launchMode": "disabled",
+    "provider": "",
+    "sendingDomainAuthenticated": false,
+    "consentRecordVerified": false,
+    "unsubscribeVerified": false,
+    "suppressionVerified": false,
+    "deliveryVerified": false,
+    "evidenceReference": ""
+  },
+  "search": {
+    "searchConsoleOwnershipVerified": false,
+    "sitemapSubmissionReady": false
+  },
+  "performance": {
+    "stagingTraceRecorded": false,
+    "evidenceReference": ""
+  },
+  "cutover": {
+    "windowApproved": false,
+    "rollbackOwner": ""
+  }
+}

@@ -1,0 +1,107 @@
+<script>
+  import { allowsAnalytics } from '../lib/analytics-privacy';
+
+  type AnalyticsProperties = Record<string, string | number>;
+  type AnalyticsDetail = { event: string; properties?: AnalyticsProperties };
+
+  const privacyNavigator = navigator as Navigator & { globalPrivacyControl?: boolean };
+  const privacySignal = !allowsAnalytics({
+    globalPrivacyControl: privacyNavigator.globalPrivacyControl,
+    doNotTrack: privacyNavigator.doNotTrack,
+  });
+
+  function cleanDestination(anchor: HTMLAnchorElement): {
+    destination?: string;
+    destination_host?: string;
+  } {
+    const destination = new URL(anchor.href, window.location.href);
+    return destination.origin === window.location.origin
+      ? { destination: destination.pathname }
+      : { destination_host: destination.hostname };
+  }
+
+  function transmit(detail: AnalyticsDetail): void {
+    if (privacySignal || !detail.event) return;
+    const body = JSON.stringify({
+      event: detail.event,
+      properties: {
+        page_path: window.location.pathname,
+        ...detail.properties,
+      },
+    });
+
+    try {
+      if (navigator.sendBeacon) {
+        const queued = navigator.sendBeacon(
+          '/api/events',
+          new Blob([body], { type: 'application/json' }),
+        );
+        if (queued) return;
+      }
+
+      void fetch('/api/events', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body,
+        keepalive: true,
+      });
+    } catch {
+      // Measurement must never interrupt the visitor's task.
+    }
+  }
+
+  document.addEventListener('harkingbade:track', (event) => {
+    if (!(event instanceof CustomEvent)) return;
+    const detail = event.detail as AnalyticsDetail | undefined;
+    if (detail) transmit(detail);
+  });
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const anchor = target.closest<HTMLAnchorElement>('a[data-track-event]');
+    if (!anchor) return;
+
+    const eventName = anchor.dataset.trackEvent ?? '';
+    const properties: AnalyticsProperties = { source_page: window.location.pathname };
+    if (eventName === 'cta_click' || eventName === 'career_intent') {
+      Object.assign(properties, cleanDestination(anchor));
+    }
+    if (eventName === 'outbound_click') {
+      const destination = cleanDestination(anchor);
+      if (destination.destination_host) properties.destination_host = destination.destination_host;
+    }
+    if (anchor.dataset.trackCta) properties.cta_id = anchor.dataset.trackCta;
+    if (anchor.dataset.trackAudience) properties.audience_route = anchor.dataset.trackAudience;
+    if (anchor.dataset.trackService) properties.service_id = anchor.dataset.trackService;
+    if (anchor.dataset.trackWork) properties.work_id = anchor.dataset.trackWork;
+    if (anchor.dataset.trackResource) properties.resource_id = anchor.dataset.trackResource;
+    if (anchor.dataset.trackMethod) properties.method = anchor.dataset.trackMethod;
+    if (anchor.dataset.trackAction) properties.action = anchor.dataset.trackAction;
+    if (anchor.dataset.trackLinkType) properties.link_type = anchor.dataset.trackLinkType;
+
+    transmit({ event: eventName, properties });
+  });
+
+  const viewed = new WeakSet<Element>();
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting || entry.intersectionRatio < 0.35 || viewed.has(entry.target)) {
+          continue;
+        }
+        viewed.add(entry.target);
+        const element = entry.target as HTMLElement;
+        const properties: AnalyticsProperties = { source_page: window.location.pathname };
+        if (element.dataset.trackService) properties.service_id = element.dataset.trackService;
+        if (element.dataset.trackWork) properties.work_id = element.dataset.trackWork;
+        if (element.dataset.trackStatus) properties.status = element.dataset.trackStatus;
+        transmit({ event: element.dataset.trackViewEvent ?? '', properties });
+        observer.unobserve(element);
+      }
+    },
+    { threshold: [0.35] },
+  );
+
+  document.querySelectorAll('[data-track-view-event]').forEach((element) => observer.observe(element));
+</script>

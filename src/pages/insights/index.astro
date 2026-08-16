@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+const entries = (await getCollection('insight', ({ data }) => !data.draft)).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const pillars = ['decide', 'position', 'build', 'grow'] as const;
+const activePillars = pillars.filter((pillar) => entries.some((entry) => entry.data.pillar === pillar));
+---
+
+<BaseLayout title={`Insights — ${site.name}`} description="Evidence-led field notes, frameworks, teardowns, and experiments across product decisions, positioning, building, and growth.">
+  <header class="page-hero container">
+    <p class="eyebrow">Insights</p>
+    <h1>Useful ideas should leave <span class="accent">evidence behind.</span></h1>
+    <p class="lede">Field notes, frameworks, implementation decisions, and experiments. No mass publishing. No fake freshness. No generic summary pretending to be experience.</p>
+    <nav class="pillar-nav" aria-label="Insight pillars">
+      {activePillars.map((pillar) => <a href={`#${pillar}`}>{pillar}</a>)}
+    </nav>
+  </header>
+  <section class="section section--paper">
+    <div class="container insight-list">
+      {pillars.map((pillar) => {
+        const group = entries.filter((entry) => entry.data.pillar === pillar);
+        if (group.length === 0) return null;
+        return (
+          <section id={pillar} class="pillar-section">
+            <header><span>0{pillars.indexOf(pillar) + 1}</span><h2>{pillar}</h2><p>{pillar === 'decide' ? 'Research, product strategy, prioritization, and analytics.' : pillar === 'position' ? 'Brand, product marketing, offers, and customer language.' : pillar === 'build' ? 'Web, ecommerce, Astro, Cloudflare, and delivery systems.' : 'Content, social, SEO, lifecycle, experiments, and conversion.'}</p></header>
+            <div>
+              {group.map((entry) => (
+                <article>
+                  <div class="meta"><span>{entry.data.evidenceType}</span><span>{entry.data.status}</span><time datetime={entry.data.publishedAt.toISOString()}>{entry.data.publishedAt.toLocaleDateString('en-CA')}</time></div>
+                  <h3><a href={`/insights/${entry.id}/`}>{entry.data.title}</a></h3>
+                  <p>{entry.data.description}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .pillar-nav { display: flex; margin-top: 2rem; flex-wrap: wrap; gap: .6rem; }
+  .pillar-nav a { padding: .35rem .75rem; border: 1px solid var(--ink); border-radius: 999px; font-family: var(--mono); font-size: .72rem; font-weight: 800; text-decoration: none; text-transform: uppercase; }
+  .pillar-nav a:hover { background: var(--lime); }
+  .insight-list { display: grid; gap: 5rem; }
+  .pillar-section { display: grid; grid-template-columns: minmax(15rem, .7fr) minmax(0, 1.3fr); gap: 3rem; scroll-margin-top: 6rem; }
+  .pillar-section > header { position: sticky; top: 7rem; height: fit-content; }
+  .pillar-section > header span { font-family: var(--mono); font-size: .75rem; }
+  .pillar-section > header h2 { margin-block: .5rem 1rem; text-transform: capitalize; }
+  .pillar-section article { padding-block: 1.8rem; border-top: 1px solid var(--line); }
+  .pillar-section article:last-child { border-bottom: 1px solid var(--line); }
+  .pillar-section article h3 { margin-block: .8rem; font-size: clamp(1.6rem, 3vw, 2.5rem); }
+  .pillar-section article h3 a { text-decoration: none; }
+  .pillar-section article h3 a:hover { color: var(--blue); }
+  @media (max-width: 760px) { .pillar-section { grid-template-columns: 1fr; } .pillar-section > header { position: static; } }
+</style>

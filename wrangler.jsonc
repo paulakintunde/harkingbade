@@ -1,0 +1,101 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "harkingbade",
+  "main": "./worker/index.ts",
+  "compatibility_date": "2026-08-16",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "TURNSTILE_ENFORCED": "false",
+    "ANALYTICS_ENABLED": "false"
+  },
+  "analytics_engine_datasets": [
+    {
+      "binding": "ANALYTICS",
+      "dataset": "harkingbade_events_local"
+    }
+  ],
+  "secrets": {
+    "required": [
+      "CONTACT_WEBHOOK_URL",
+      "CONTACT_WEBHOOK_TOKEN",
+      "NEWSLETTER_WEBHOOK_URL",
+      "NEWSLETTER_WEBHOOK_TOKEN",
+      "TURNSTILE_SECRET_KEY"
+    ]
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "env": {
+    "staging": {
+      "workers_dev": true,
+      "assets": {
+        "directory": "./dist",
+        "binding": "ASSETS",
+        "not_found_handling": "404-page",
+        "run_worker_first": ["/api/*"]
+      },
+      "vars": {
+        "TURNSTILE_ENFORCED": "false",
+        "ANALYTICS_ENABLED": "false"
+      },
+      "analytics_engine_datasets": [
+        {
+          "binding": "ANALYTICS",
+          "dataset": "harkingbade_events_staging"
+        }
+      ],
+      "secrets": {
+        "required": [
+          "CONTACT_WEBHOOK_URL",
+          "CONTACT_WEBHOOK_TOKEN",
+          "NEWSLETTER_WEBHOOK_URL",
+          "NEWSLETTER_WEBHOOK_TOKEN",
+          "TURNSTILE_SECRET_KEY"
+        ]
+      }
+    },
+    "production": {
+      "workers_dev": false,
+      "routes": [
+        {
+          "pattern": "harkingbade.com",
+          "custom_domain": true
+        }
+      ],
+      "assets": {
+        "directory": "./dist",
+        "binding": "ASSETS",
+        "not_found_handling": "404-page",
+        "run_worker_first": ["/api/*"]
+      },
+      "vars": {
+        "TURNSTILE_ENFORCED": "false",
+        "ANALYTICS_ENABLED": "false"
+      },
+      "analytics_engine_datasets": [
+        {
+          "binding": "ANALYTICS",
+          "dataset": "harkingbade_events_production"
+        }
+      ],
+      "secrets": {
+        "required": [
+          "CONTACT_WEBHOOK_URL",
+          "CONTACT_WEBHOOK_TOKEN",
+          "NEWSLETTER_WEBHOOK_URL",
+          "NEWSLETTER_WEBHOOK_TOKEN",
+          "TURNSTILE_SECRET_KEY"
+        ]
+      }
+    }
+  }
+}

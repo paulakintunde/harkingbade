@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+---
+
+<BaseLayout title={`Resources — ${site.name}`} description="Practical Harkingbade canvases, checklists, and tools for making better product and growth decisions.">
+  <header class="page-hero container">
+    <p class="eyebrow">Resources</p>
+    <h1>Tools should help someone make <span class="accent">a better decision.</span></h1>
+    <p class="lede">A small library of working canvases, checklists, and calculators derived from repeated product and growth problems—not filler downloads built only to capture email.</p>
+  </header>
+  <section class="section section--paper">
+    <div class="container card-grid">
+      <article class="card card--wide card--coral">
+        <div class="meta"><span class="tag">Available now</span><span>Interactive diagnostic</span></div>
+        <div><h3><a class="card-link" href="/resources/4d-diagnostic/">The 4D Product & Growth Diagnostic</a></h3><p>Rate 16 evidence statements, identify the weakest stage in the system, and leave with three concrete next actions. No email gate and no answers saved.</p></div>
+      </article>
+      <aside class="card card--small"><div class="meta"><span>About 7 minutes</span></div><div><h3>Score evidence, not ambition.</h3><p>The result is a structured reflection, not an external benchmark or automated sales verdict.</p></div></aside>
+      <article class="card card--wide card--lime">
+        <div class="meta"><span class="tag">Available now</span><span>Decision canvas</span></div>
+        <div><h3><a class="card-link" href="/resources/4d-decision-canvas/">The 4D Product & Growth Decision Canvas</a></h3><p>Align customer evidence, strategic choices, delivery scope, distribution, and success measures on one printable page.</p></div>
+      </article>
+      <aside class="card card--small card--ink"><div class="meta"><span>Use together</span></div><div><h3>Score, then align.</h3><p>Use the diagnostic to locate the constraint and the canvas to make the next decision explicit.</p></div></aside>
+    </div>
+  </section>
+</BaseLayout>

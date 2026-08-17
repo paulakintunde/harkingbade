@@ -21,7 +21,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
       ))}
     </nav>
 
-    <a class="header-cta" href="/contact/">Start a conversation <span aria-hidden="true">↗</span></a>
+    <a class="header-cta" href="/contact/">Start a project <span aria-hidden="true">↗</span></a>
 
     <details class="mobile-nav">
       <summary aria-label="Open navigation">Menu</summary>
@@ -31,7 +31,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
             {item.label}
           </a>
         ))}
-        <a href="/contact/">Start a conversation</a>
+        <a href="/contact/">Start a project</a>
       </nav>
     </details>
   </div>
@@ -43,7 +43,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
   .site-header { position: sticky; z-index: 50; top: 0; border-bottom: 1px solid rgba(23, 33, 28, .28); background: rgba(244, 240, 231, .92); backdrop-filter: blur(14px); }
   .header-inner { display: grid; min-height: 4.7rem; grid-template-columns: 1fr auto 1fr; gap: 1.25rem; align-items: center; }
   .brand { display: inline-flex; width: fit-content; gap: .7rem; align-items: center; font-size: .95rem; font-weight: 900; letter-spacing: -.02em; text-decoration: none; }
-  .brand-mark { display: grid; width: 2rem; height: 2rem; place-items: center; border-radius: .35rem; color: var(--lime); background: var(--ink); font-family: var(--serif); font-size: 1.25rem; }
+  .brand-mark { display: grid; width: 2rem; height: 2rem; place-items: center; border-radius: .35rem; color: var(--lime); background: var(--ink); font-family: var(--display); font-size: 1.05rem; font-weight: 900; }
   .desktop-nav { display: flex; gap: 1.35rem; align-items: center; }
   .desktop-nav a { position: relative; font-size: .83rem; font-weight: 750; text-decoration: none; }
   .desktop-nav a::after { position: absolute; right: 0; bottom: -.4rem; left: 0; height: 2px; transform: scaleX(0); background: var(--blue); content: ''; transition: transform .16s ease; }

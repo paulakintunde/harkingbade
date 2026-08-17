@@ -2,18 +2,18 @@ export const site = {
   name: 'Harkingbade',
   shortName: 'HB',
   url: 'https://harkingbade.com',
-  title: 'Harkingbade — Product & Growth Systems Builder',
+  title: 'Harkingbade — AI media, product, and growth in motion',
   description:
-    'Product strategy, positioning, growth, content, and hands-on web delivery for digital products people choose.',
+    'Harkingbade turns property photos, product listings, and early ideas into useful stories, better experiences, and demand.',
   email: 'hello@harkingbade.com',
   locale: 'en_CA',
   language: 'en',
 } as const;
 
 export const navigation = [
-  { label: 'Work', href: '/work/' },
-  { label: 'Services', href: '/services/' },
-  { label: 'Insights', href: '/insights/' },
+  { label: 'Who I help', href: '/services/' },
+  { label: 'Proof', href: '/work/' },
+  { label: 'Field notes', href: '/insights/' },
   { label: 'Lab', href: '/lab/' },
   { label: 'About', href: '/about/' },
 ] as const;

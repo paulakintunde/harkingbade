@@ -2,28 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
 import { site } from '../data/site';
-const newsletterEnabled = import.meta.env.PUBLIC_NEWSLETTER_ENABLED === 'true';
+const enabled = import.meta.env.PUBLIC_NEWSLETTER_ENABLED === 'true';
 ---
-
-<BaseLayout title={`Newsletter — ${site.name}`} description="Evidence-led field notes about product decisions, positioning, delivery, and growth systems from Harkingbade.">
-  <section class="newsletter-hero section--ink">
-    <div class="container split">
-      <div><p class="eyebrow">The Harkingbade Field Note</p><h1>A useful idea.<br /><span>Attached to the work.</span></h1></div>
-      <div class="flow-end stack-lg">
-        <p class="lede">A concise note about a real product, positioning, build, or growth decision. No daily noise and no generic roundup.</p>
-        {newsletterEnabled ? (
-          <NewsletterForm />
-        ) : (
-          <div class="notice"><strong>List setup in progress</strong>The publishing archive and RSS feed are live. Email subscription will open only after the sending domain, delivery webhook, consent record, unsubscribe path, and welcome sequence are verified.</div>
-        )}
-        <div class="button-row"><a class="button button--light" href="/rss.xml">Follow by RSS</a>{!newsletterEnabled && <a class="button button--ghost" href="/contact/?interest=newsletter">Ask for the first issue</a>}</div>
-      </div>
-    </div>
-  </section>
-</BaseLayout>
-
-<style>
-  .newsletter-hero { min-height: 75vh; padding-block: clamp(6rem, 13vw, 11rem); }
-  h1 { font-size: clamp(3.5rem, 8vw, 7rem); }
-  h1 span { color: var(--lime); font-style: italic; }
-</style>
+<BaseLayout title={`Newsletter — ${site.name}`}><section class="hero hero--dark"><div class="container hero-copy"><p class="eyebrow">Field note / placeholder</p><h1>One useful idea, attached to the work.</h1><p class="lede">The publishing system is paused while the new positioning and delivery path are rebuilt.</p>{enabled ? <NewsletterForm /> : <p class="panel">Email signup will open after delivery, consent, and unsubscribe checks are complete. <a href="/rss.xml">Follow the RSS feed →</a></p>}</div></section></BaseLayout>

@@ -1,31 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { site } from '../../data/site';
-const work = (await getCollection('work', ({ data }) => !data.draft)).sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
+import PlaceholderPage from '../../components/PlaceholderPage.astro';
+const cards = [
+  { label: 'Proof / 01', title: 'Case study placeholder', body: 'A compact record of context, decisions, shipped work, and outcome.' },
+  { label: 'Proof / 02', title: 'Experiment placeholder', body: 'A hypothesis-led test with a visible signal and next action.' },
+  { label: 'Proof / 03', title: 'Capability placeholder', body: 'A hiring-friendly view of contribution across disciplines.' },
+];
 ---
-
-<BaseLayout title={`Work — ${site.name}`} description="Proof-led Harkingbade case studies showing context, constraints, decisions, execution, evidence, and reflection.">
-  <header class="page-hero container">
-    <p class="eyebrow">Selected work</p>
-    <h1>Claims are cheap.<br /><span class="accent">Show the decisions.</span></h1>
-    <p class="lede">Each case study separates observed evidence, working inference, delivered artifacts, and measured outcomes. Unknowns remain visible.</p>
-  </header>
-  <section class="section section--paper">
-    <div class="container card-grid">
-      {work.map((entry, index) => (
-        <article class:list={['card', index % 3 === 0 ? 'card--wide card--ink' : 'card--small card--lime']}>
-          <div class="meta"><span class="tag">{entry.data.status}</span><span>Updated {entry.data.updatedAt.toLocaleDateString('en-CA')}</span></div>
-          <div>
-            <h3><a class="card-link" href={`/work/${entry.id}/`}>{entry.data.title}</a></h3>
-            <p>{entry.data.description}</p>
-          </div>
-        </article>
-      ))}
-      <aside class="card card--small card--coral">
-        <div class="meta"><span>Next proof object</span></div>
-        <div><h3>Your project could be next.</h3><p>Best fit: a real product, offer, or journey with a consequential decision and measurable outcome.</p><p><a href="/contact/">Share the context →</a></p></div>
-      </aside>
-    </div>
-  </section>
-</BaseLayout>
+<PlaceholderPage eyebrow="Proof / placeholder" title="Show the work. Keep the claims honest." description="This is the future home for selected work, experiments, and evidence-led stories." cards={cards} />

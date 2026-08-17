@@ -1,82 +1,10 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
-const offers = [
-  { id: 'property', number: '01', name: 'Property Experience Pack', fit: 'A short-stay host has good photos but no clear, cinematic way to turn them into attention and bookings.', outcome: 'A social-ready property story, listing improvement map, and a direct-booking content path built from existing assets.', shape: 'Working hypothesis: a 48-hour pilot for one property before expanding to a repeatable content system.', boundary: 'Creative and conversion support—not a promise of occupancy, ranking, or platform performance.', includes: ['Photo-to-motion social cuts', 'Listing and hook review', 'Caption, title, and distribution prompts', 'Direct-booking page recommendation'] },
-  { id: 'commerce', number: '02', name: 'Commerce Content Refresh', fit: 'An Etsy, eBay, or Shopify seller has products but is short on fresh creative, strong hooks, or a clear conversion story.', outcome: 'A small set of product-led short-form assets and a prioritized product-page improvement plan.', shape: 'Working hypothesis: a 1–2 week pilot for one product family, followed by a repeatable monthly system if the evidence supports it.', boundary: 'A focused creative and conversion intervention—not a guaranteed ROAS lift or a full agency retainer.', includes: ['Product motion concepts and scripts', 'Hook and offer variations', 'Listing, PDP, and funnel teardown', 'Social publishing prompts and test plan'] },
-  { id: 'diagnostic', number: '01', name: 'Product & Growth Diagnostic', fit: 'A product, offer, or customer journey is underperforming, but the team is not aligned on the real constraint.', outcome: 'A decision brief, evidence map, measurement baseline, and prioritized 30/60/90-day plan.', shape: 'Working hypothesis: a focused 1–2 week engagement after evidence access is confirmed.', boundary: 'Diagnosis and decision design—not a disguised promise to implement every recommendation.', includes: ['Customer and market evidence review', 'Product, positioning, journey, and analytics diagnosis', 'Risk and opportunity map', 'Leadership readout and next-step recommendation'] },
-  { id: 'launch', number: '02', name: 'Position-to-Launch Sprint', fit: 'The product or offer is valuable, but the audience, promise, page, launch motion, or measurement plan remains unclear.', outcome: 'A coherent route from customer language to positioned offer, launch experience, and measurable demand.', shape: 'Working hypothesis: a 2–4 week sprint with one accountable decision-maker and timely customer access.', boundary: 'One bounded offer and launch path—not a full rebrand, product rebuild, or indefinite content retainer.', includes: ['Customer-language synthesis', 'Value proposition and offer architecture', 'Landing experience and launch assets', 'Measurement and learning plan'] },
-  { id: 'conversion', number: '03', name: 'Conversion & Growth Sprint', fit: 'Traffic or awareness exists, but the journey leaks attention, trust, activation, purchase, or retention.', outcome: 'One implemented high-value improvement and an evidence-ranked experiment backlog.', shape: 'Working hypothesis: a 2–4 week sprint after baseline access and implementation authority are confirmed.', boundary: 'One prioritized intervention and learning plan—not a guaranteed conversion lift or an unlimited experiment queue.', includes: ['Journey and friction diagnosis', 'Message and experience intervention', 'Event and baseline instrumentation', 'Experiment backlog with decision rules'] },
-  { id: 'fractional', number: '04', name: 'Fractional Product & Growth Builder', fit: 'A lean team needs ongoing ownership across product decisions, positioning, delivery, and growth without building a full department.', outcome: 'A maintained learning loop, clearer priorities, shipped interventions, and accountable measurement.', shape: 'Working hypothesis: an initial 90-day mandate with explicit ownership, cadence, capacity, and decision rights.', boundary: 'Cross-functional product and growth ownership—not 24/7 availability or a substitute for every specialist function.', includes: ['Ongoing discovery and priority ownership', 'Cross-functional operating cadence', 'Launch and growth execution', 'Executive evidence and decision record'] },
+import PlaceholderPage from '../components/PlaceholderPage.astro';
+const cards = [
+  { label: '01 / Product', title: 'Product direction', body: 'Placeholder for product discovery, prioritization, and experience design.' },
+  { label: '02 / Growth', title: 'Marketing systems', body: 'Placeholder for positioning, content, social, SEO, and conversion.' },
+  { label: '03 / Build', title: 'Web and ecommerce', body: 'Placeholder for Astro, Cloudflare, storefront, and launch implementation.' },
+  { label: '04 / Partner', title: 'Flexible support', body: 'Placeholder for a focused sprint or an embedded product and growth role.' },
 ];
 ---
-
-<BaseLayout title={`Services — ${site.name}`} description="Product and growth diagnostics, launch and conversion sprints, and fractional cross-functional ownership for lean teams.">
-  <header class="page-hero container">
-    <p class="eyebrow">Services</p>
-    <h1>Start with the constraint.<br /><span class="accent">Then choose the work.</span></h1>
-    <p class="lede">Harkingbade sells bounded decisions and outcomes—not an open-ended menu of marketing, development, and content tasks.</p>
-  </header>
-  <section class="section section--ink">
-    <div class="container offer-stack">
-      {offers.map((offer, index) => (
-        <article id={offer.id} class="offer" data-track-view-event="service_view" data-track-service={offer.id}>
-          <div class="offer-index"><span>{String(index + 1).padStart(2, '0')}</span><span class="tag">Working offer</span></div>
-          <div class="offer-main">
-            <h2>{offer.name}</h2>
-            <dl>
-              <div><dt>Best fit</dt><dd>{offer.fit}</dd></div>
-              <div><dt>Intended outcome</dt><dd>{offer.outcome}</dd></div>
-              <div><dt>Validation shape</dt><dd>{offer.shape}</dd></div>
-              <div><dt>Boundary</dt><dd>{offer.boundary}</dd></div>
-            </dl>
-          </div>
-          <div class="offer-side">
-            <p class="label">Typical components</p>
-            <ul>{offer.includes.map((item) => <li>{item}</li>)}</ul>
-            <a class="button button--light" href={`/contact/?interest=${offer.id}`} data-track-event="cta_click" data-track-cta={`services-${offer.id}`} data-track-audience="services">Discuss this engagement</a>
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-  <section class="section section--paper">
-    <div class="container split">
-      <div><p class="eyebrow">Pilot engagement gate</p><h2>Useful work starts with five agreements.</h2></div>
-      <ol class="engagement-gate flow-end">
-        <li><strong>Decision</strong><span>The consequential question this engagement must answer.</span></li>
-        <li><strong>Evidence</strong><span>The customer, commercial, product, and journey information available now.</span></li>
-        <li><strong>Authority</strong><span>Who decides, who contributes, and what can actually be changed.</span></li>
-        <li><strong>Boundary</strong><span>Scope, exclusions, cadence, dependencies, and what would trigger a change.</span></li>
-        <li><strong>Measure</strong><span>The baseline, observation window, success threshold, and next decision.</span></li>
-      </ol>
-    </div>
-  </section>
-  <section class="section section--lime">
-    <div class="container split">
-      <div><p class="eyebrow">Commercial honesty</p><h2>Scope before price theatre.</h2></div>
-      <div class="stack-lg flow-end"><p class="lede">Pricing will be published after target market, proof, delivery time, currency, and buyer interviews are validated. Until then, every proposal must state scope, exclusions, evidence, decision rights, timeline, and success measures.</p><div class="button-row"><a class="button" href="/contact/" data-track-event="cta_click" data-track-cta="services-general" data-track-audience="services">Share a problem</a><a class="button button--ghost" href="/resources/4d-diagnostic/" data-track-event="resource_use" data-track-resource="4d-diagnostic" data-track-action="open">Take the free diagnostic</a></div></div>
-    </div>
-  </section>
-</BaseLayout>
-
-<style>
-  .offer-stack { display: grid; }
-  .offer { display: grid; padding-block: clamp(2.5rem, 5vw, 4.5rem); grid-template-columns: 8rem minmax(0, 1.3fr) minmax(18rem, .7fr); gap: 2rem; border-top: 1px solid #526157; scroll-margin-top: 5rem; }
-  .offer:last-child { border-bottom: 1px solid #526157; }
-  .offer-index { display: flex; align-items: flex-start; flex-direction: column; gap: 1rem; color: var(--lime); font-family: var(--mono); }
-  .offer-main h2 { margin-bottom: 2.5rem; font-size: clamp(2.4rem, 5vw, 4.6rem); }
-  dl { display: grid; gap: 1.5rem; }
-  dl div { display: grid; gap: .35rem; }
-  dt, .label { color: var(--lime); font-family: var(--mono); font-size: .7rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
-  dd { color: #d9e0da; }
-  .offer-side ul { display: grid; margin-block: 1rem 2rem; gap: .65rem; list-style: none; }
-  .offer-side li { padding-bottom: .65rem; border-bottom: 1px solid #526157; color: #d9e0da; font-size: .9rem; }
-  .engagement-gate { display: grid; gap: 0; list-style: none; counter-reset: gate; }
-  .engagement-gate li { display: grid; padding: 1.15rem 0; grid-template-columns: 3rem 1fr; column-gap: 1rem; border-bottom: 1px solid var(--line); }
-  .engagement-gate li::before { grid-row: 1 / 3; color: var(--blue); font-family: var(--mono); font-size: .7rem; content: '0' counter(gate); counter-increment: gate; }
-  .engagement-gate strong { grid-column: 2; }
-  .engagement-gate span { grid-column: 2; color: var(--ink-2); }
-  @media (max-width: 850px) { .offer { grid-template-columns: 4rem 1fr; } .offer-side { grid-column: 2; } }
-  @media (max-width: 550px) { .offer { grid-template-columns: 1fr; } .offer-index { flex-direction: row; } .offer-side { grid-column: auto; } }
-</style>
+<PlaceholderPage eyebrow="Solutions / placeholder" title="Useful work, in the shape the problem needs." description="Offers are being repositioned around the strongest intersections of product, brand, content, growth, and build." cards={cards} />

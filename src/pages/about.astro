@@ -1,48 +1,9 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import StageGrid from '../components/StageGrid.astro';
-import { site } from '../data/site';
+import PlaceholderPage from '../components/PlaceholderPage.astro';
+const cards = [
+  { label: 'Capability', title: 'Product management', body: 'Placeholder for discovery, strategy, prioritization, and delivery.' },
+  { label: 'Capability', title: 'Brand and marketing', body: 'Placeholder for positioning, identity, content, and distribution.' },
+  { label: 'Capability', title: 'Design and build', body: 'Placeholder for UI, web development, ecommerce, and motion.' },
+];
 ---
-
-<BaseLayout title={`About — ${site.name}`} description="Harkingbade connects customer insight, product strategy, positioning, content, growth, and hands-on digital delivery.">
-  <header class="page-hero container">
-    <p class="eyebrow">About Harkingbade</p>
-    <h1>Cross-functional is useful when it creates <span class="accent">one coherent result.</span></h1>
-    <p class="lede">Harkingbade is being rebuilt as the proof-led practice of a Product & Growth Systems Builder—an operator working across the seams between opportunity, product, message, delivery, and demand.</p>
-  </header>
-  <section class="section section--paper">
-    <div class="container split about-grid">
-      <div>
-        <p class="eyebrow">The point of view</p>
-        <h2>Most growth problems are system problems.</h2>
-      </div>
-      <div class="prose flow-end">
-        <p>A useful product can be poorly positioned. A compelling promise can lead to a weak experience. A good site can attract the wrong audience. A strong campaign can hide a product problem.</p>
-        <p>The differentiator is not "I can do many things." It is the ability to connect customer evidence, strategic choices, implementation, and learning without losing the thread at each handoff.</p>
-        <p>That means bringing product management, marketing, brand, content, social distribution, web development, and ecommerce together only when the problem requires them.</p>
-      </div>
-    </div>
-  </section>
-  <section class="section section--ink">
-    <div class="container">
-      <p class="eyebrow">How the work moves</p>
-      <h2 class="system-title">Discover. Define.<br />Deliver. Drive.</h2>
-      <StageGrid />
-    </div>
-  </section>
-  <section id="career" class="section section--lime">
-    <div class="container split">
-      <div><p class="eyebrow">Career route</p><h2>For hiring teams.</h2></div>
-      <div class="stack-lg flow-end">
-        <p class="lede">The strongest role families are Growth Product, Product Marketing, Digital Product or Ecommerce, Product/Growth Strategy, and zero-to-one operating roles. The final priority and resume evidence are being completed before specific claims are published.</p>
-        <div class="notice"><strong>Evidence inventory in progress</strong>Public identity, role history, project metrics, testimonials, location, and verified professional profiles will be added only from founder-supplied evidence.</div>
-        <div class="button-row"><a class="button" href="/career/">View the career profile</a><a class="button button--ghost" href="/contact/?interest=career">Discuss an opportunity</a></div>
-      </div>
-    </div>
-  </section>
-</BaseLayout>
-
-<style>
-  .about-grid { align-items: start; }
-  .system-title { margin-bottom: 3rem; }
-</style>
+<PlaceholderPage eyebrow="About / placeholder" title="A many-skilled practice with one point of view." description="The profile will connect the disciplines to the outcomes instead of listing every skill separately." cards={cards} />

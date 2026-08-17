@@ -1,44 +1,9 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
-const experiments = [
-  { id: 'EXP-001', status: 'building', title: 'Harkingbade recovery baseline', hypothesis: 'A proof-led authority site plus direct offer validation can create qualified opportunities before high search traffic returns.', measure: 'Qualified career conversations, service leads, paid validation, email conversion, and reliable crawl/index coverage.', next: 'Resolve the confirmed Cloudflare 503 route, import historical analytics, deploy the minimum authority site, and begin measurement.' },
-  { id: 'EXP-002', status: 'queued', title: 'Diagnostic offer language', hypothesis: 'Lean teams will respond more strongly to a bounded decision and priority map than to a general list of product, marketing, and development services.', measure: 'Interview comprehension, reply rate, qualified calls, proposal rate, and paid pilots.', next: 'Complete ten buyer/hiring conversations and test two evidence-led outreach variants.' },
-  { id: 'EXP-003', status: 'queued', title: 'Evidence-rich publishing', hypothesis: 'Lower-frequency articles with original artifacts will produce more qualified attention per article than volume-led keyword publishing.', measure: 'Citations, relevant backlinks, engaged reading, subscriber conversion, replies, and assisted opportunities.', next: 'Publish the first framework, technical field note, and migration case update.' },
+import PlaceholderPage from '../components/PlaceholderPage.astro';
+const cards = [
+  { label: 'Motion / Remotion', title: 'Opportunity signal', body: 'Placeholder for the first rendered composition and a short making-of.' },
+  { label: 'Prototype / Astro', title: 'Interactive tool', body: 'Placeholder for a small utility that demonstrates product thinking.' },
+  { label: 'AI / Workflow', title: 'Working experiment', body: 'Placeholder for a repeatable system that improves creative output.' },
 ];
 ---
-
-<BaseLayout title={`Lab — ${site.name}`} description="A public record of Harkingbade experiments, hypotheses, baselines, changes, measures, outcomes, and failed assumptions.">
-  <header class="page-hero container">
-    <p class="eyebrow">Harkingbade Lab</p>
-    <h1>Show the work.<br /><span class="accent">Record the misses.</span></h1>
-    <p class="lede">The Lab is the operating record behind the brand: hypotheses, interventions, baselines, results, and lessons. It prevents polished case studies from erasing uncertainty.</p>
-  </header>
-  <section class="section section--ink">
-    <div class="container lab-table">
-      <div class="lab-head"><span>Experiment</span><span>Hypothesis & measure</span><span>Next action</span></div>
-      {experiments.map((experiment) => (
-        <article>
-          <div><span class="tag">{experiment.status}</span><p class="id">{experiment.id}</p><h2>{experiment.title}</h2></div>
-          <div class="stack"><p><strong>Hypothesis</strong>{experiment.hypothesis}</p><p><strong>Measure</strong>{experiment.measure}</p></div>
-          <div><p>{experiment.next}</p></div>
-        </article>
-      ))}
-    </div>
-  </section>
-  <section class="section section--lime">
-    <div class="narrow stack-lg"><p class="eyebrow">Lab rule</p><h2>A failed hypothesis is useful. An invisible one is not.</h2><p class="lede">Material experiment updates will include the date, evidence source, decision, and what changed next. Traffic without qualified behaviour will not be presented as success.</p></div>
-  </section>
-</BaseLayout>
-
-<style>
-  .lab-table { border-top: 1px solid #536258; }
-  .lab-head, article { display: grid; grid-template-columns: minmax(15rem, .7fr) minmax(20rem, 1.25fr) minmax(14rem, .65fr); gap: 2rem; }
-  .lab-head { padding-block: .75rem; color: var(--lime); font-family: var(--mono); font-size: .7rem; text-transform: uppercase; }
-  article { padding-block: 2.2rem; border-top: 1px solid #536258; }
-  article h2 { margin-top: 1rem; font-family: var(--sans); font-size: clamp(1.5rem, 2.5vw, 2.25rem); font-weight: 750; letter-spacing: -.03em; }
-  article p { color: #d2dbd4; }
-  article strong { display: block; margin-bottom: .2rem; color: var(--lime); font-family: var(--mono); font-size: .68rem; text-transform: uppercase; }
-  .id { margin-top: .7rem; font-family: var(--mono); font-size: .7rem; }
-  @media (max-width: 850px) { .lab-head { display: none; } article { grid-template-columns: 1fr; } }
-</style>
+<PlaceholderPage eyebrow="Lab / placeholder" title="Make the range visible." description="A home for motion, prototypes, AI workflows, and small experiments that support the brand." cards={cards} />

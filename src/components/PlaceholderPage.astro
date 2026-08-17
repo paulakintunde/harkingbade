@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from './SectionHeading.astro';
+
+interface Card { label: string; title: string; body: string; }
+interface Props { eyebrow: string; title: string; description: string; cards: Card[]; }
+const { eyebrow, title, description, cards } = Astro.props;
+---
+<BaseLayout><section class="hero"><div class="container hero-copy"><p class="eyebrow">{eyebrow}</p><h1>{title}</h1><p class="lede">{description}</p></div></section><section class="section section--white"><div class="container"><SectionHeading eyebrow="Placeholder structure" title="The useful version comes next." description="This page is intentionally sparse while the content model, offers, and proof are repositioned." /><div class="placeholder-grid">{cards.map((card) => <article class="placeholder-card"><span class="label">{card.label}</span><div><h3>{card.title}</h3><p>{card.body}</p></div><a class="route-link" href="/contact/">Placeholder link →</a></article>)}</div></div></section><section class="section section--acid"><div class="container stack"><p class="eyebrow">Next move</p><h2>Keep the structure. Add the evidence.</h2><a class="button button--dark" href="/contact/">Start a project ↗</a></div></section></BaseLayout>

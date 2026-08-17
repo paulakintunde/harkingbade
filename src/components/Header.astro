@@ -1,63 +1,39 @@
 ---
 import { navigation, site } from '../data/site';
-
 const path = Astro.url.pathname;
-const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const isCurrent = (href: string) => href === '/' ? path === '/' : path.startsWith(href);
 ---
-
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
-  <div class="header-inner container">
-    <a class="brand" href="/" aria-label={`${site.name} home`}>
-      <span class="brand-mark" aria-hidden="true">H</span>
-      <span>{site.name}</span>
-    </a>
-
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label={`${site.name} home`}><span class="brand-mark">H</span><span>{site.name}</span></a>
     <nav class="desktop-nav" aria-label="Primary navigation">
-      {navigation.map((item) => (
-        <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
-          {item.label}
-        </a>
-      ))}
+      {navigation.map((item) => <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>)}
     </nav>
-
     <a class="header-cta" href="/contact/">Start a project <span aria-hidden="true">↗</span></a>
-
     <details class="mobile-nav">
-      <summary aria-label="Open navigation">Menu</summary>
+      <summary>Menu</summary>
       <nav aria-label="Mobile navigation">
-        {navigation.map((item) => (
-          <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
-            {item.label}
-          </a>
-        ))}
+        {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
         <a href="/contact/">Start a project</a>
       </nav>
     </details>
   </div>
 </header>
-
 <style>
-  .skip-link { position: fixed; z-index: 100; top: .75rem; left: .75rem; padding: .7rem 1rem; transform: translateY(-180%); color: var(--paper-2); background: var(--blue); font-weight: 800; }
-  .skip-link:focus { transform: translateY(0); }
-  .site-header { position: sticky; z-index: 50; top: 0; border-bottom: 1px solid rgba(23, 33, 28, .28); background: rgba(244, 240, 231, .92); backdrop-filter: blur(14px); }
-  .header-inner { display: grid; min-height: 4.7rem; grid-template-columns: 1fr auto 1fr; gap: 1.25rem; align-items: center; }
-  .brand { display: inline-flex; width: fit-content; gap: .7rem; align-items: center; font-size: .95rem; font-weight: 900; letter-spacing: -.02em; text-decoration: none; }
-  .brand-mark { display: grid; width: 2rem; height: 2rem; place-items: center; border-radius: .35rem; color: var(--lime); background: var(--ink); font-family: var(--display); font-size: 1.05rem; font-weight: 900; }
-  .desktop-nav { display: flex; gap: 1.35rem; align-items: center; }
-  .desktop-nav a { position: relative; font-size: .83rem; font-weight: 750; text-decoration: none; }
-  .desktop-nav a::after { position: absolute; right: 0; bottom: -.4rem; left: 0; height: 2px; transform: scaleX(0); background: var(--blue); content: ''; transition: transform .16s ease; }
-  .desktop-nav a:hover::after, .desktop-nav a[aria-current='page']::after { transform: scaleX(1); }
-  .header-cta { justify-self: end; font-size: .82rem; font-weight: 800; text-decoration: none; }
+  .site-header { position: sticky; z-index: 50; top: 0; border-bottom: 1px solid var(--line); background: rgb(244 242 237 / .9); backdrop-filter: blur(16px); }
+  .header-inner { display: grid; min-height: 4.5rem; grid-template-columns: 1fr auto 1fr; gap: 1.5rem; align-items: center; }
+  .brand { display: inline-flex; width: fit-content; gap: .65rem; align-items: center; font-weight: 900; letter-spacing: -.03em; text-decoration: none; }
+  .brand-mark { display: grid; width: 2rem; height: 2rem; place-items: center; color: var(--acid); background: var(--ink); font-family: var(--display); }
+  .desktop-nav { display: flex; gap: 1.2rem; align-items: center; }
+  .desktop-nav a { color: var(--ink-soft); font-size: .83rem; font-weight: 750; text-decoration: none; }
+  .desktop-nav a:hover, .desktop-nav a[aria-current='page'] { color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; }
+  .header-cta { justify-self: end; font-size: .83rem; font-weight: 800; text-decoration: none; }
   .header-cta span { color: var(--blue); }
   .mobile-nav { display: none; justify-self: end; }
-  .mobile-nav summary { padding: .5rem .7rem; border: 1px solid var(--ink); border-radius: 999px; font-size: .8rem; font-weight: 800; cursor: pointer; list-style: none; }
+  .mobile-nav summary { padding: .45rem .75rem; border: 1px solid var(--ink); border-radius: 999px; font-size: .8rem; font-weight: 800; cursor: pointer; list-style: none; }
   .mobile-nav summary::-webkit-details-marker { display: none; }
-  .mobile-nav nav { position: absolute; top: calc(100% + 1px); right: 0; left: 0; display: grid; padding: 1rem; border-bottom: 1px solid var(--ink); background: var(--paper-2); box-shadow: var(--shadow); }
-  .mobile-nav nav a { padding: .85rem; border-bottom: 1px solid var(--line); font-weight: 750; text-decoration: none; }
-  @media (max-width: 820px) {
-    .header-inner { grid-template-columns: 1fr auto; }
-    .desktop-nav, .header-cta { display: none; }
-    .mobile-nav { display: block; }
-  }
+  .mobile-nav nav { position: absolute; top: 100%; right: 0; left: 0; display: grid; padding: 1rem; border-bottom: 1px solid var(--ink); background: var(--white); box-shadow: var(--shadow); }
+  .mobile-nav nav a { padding: .8rem; border-bottom: 1px solid var(--line); font-weight: 750; text-decoration: none; }
+  @media (max-width: 820px) { .header-inner { grid-template-columns: 1fr auto; } .desktop-nav, .header-cta { display: none; } .mobile-nav { display: block; } }
 </style>

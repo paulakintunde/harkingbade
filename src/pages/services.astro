@@ -19,9 +19,9 @@ const offers = [
   </header>
   <section class="section section--ink">
     <div class="container offer-stack">
-      {offers.map((offer) => (
+      {offers.map((offer, index) => (
         <article id={offer.id} class="offer" data-track-view-event="service_view" data-track-service={offer.id}>
-          <div class="offer-index"><span>{offer.number}</span><span class="tag">Working offer</span></div>
+          <div class="offer-index"><span>{String(index + 1).padStart(2, '0')}</span><span class="tag">Working offer</span></div>
           <div class="offer-main">
             <h2>{offer.name}</h2>
             <dl>

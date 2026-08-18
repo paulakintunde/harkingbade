@@ -5,21 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "motion:studio": "remotion studio remotion/index.ts",
-    "motion:render": "remotion render remotion/index.ts OpportunitySignal public/hero-signal.mp4 --codec=h264",
-    "assets:og": "node scripts/build-og-image.mjs",
-    "build": "npm run types:worker && npm run assets:og && astro check && astro build && node scripts/verify-build.mjs",
+    "build": "npm run types:worker && astro check && astro build && node scripts/verify-build.mjs",
     "preview": "wrangler dev",
     "check": "astro check && tsc --noEmit",
-    "test": "vitest run",
     "verify:build": "node scripts/verify-build.mjs",
-    "research:archive": "node scripts/build-legacy-inventory.mjs",
-    "research:domain": "node scripts/check-domain.mjs",
-    "research:evidence": "node scripts/analyze-recovery-evidence.mjs",
-    "research:founder": "node scripts/validate-founder-evidence.mjs",
-    "launch:preflight": "node scripts/launch-preflight.mjs",
     "types:worker": "wrangler types",
-    "smoke": "node scripts/smoke-deployment.mjs",
     "deploy:dry": "npm run deploy:dry:production",
     "deploy:dry:staging": "npm run build && wrangler deploy --env staging --dry-run",
     "deploy:dry:production": "npm run build && wrangler deploy --env production --dry-run",
@@ -27,22 +17,13 @@
     "deploy:production": "npm run build && wrangler deploy --env production"
   },
   "dependencies": {
-    "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.3",
-    "astro": "7.2.2",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "astro": "7.2.2"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "@cloudflare/workers-types": "5.20260816.1",
-    "@remotion/cli": "^4.0.512",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
-    "remotion": "^4.0.512",
-    "sharp": "^0.35.3",
     "typescript": "5.9.3",
-    "vitest": "4.1.10",
     "wrangler": "4.123.0"
   },
   "engines": {

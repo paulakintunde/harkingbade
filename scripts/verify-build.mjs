@@ -119,7 +119,6 @@ for (const required of [
   '_headers',
   '_redirects',
   'robots.txt',
-  'rss.xml',
   'sitemap-index.xml',
   'site.webmanifest',
   'og-default.png',

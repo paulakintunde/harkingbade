@@ -1,12 +1,4 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="Page not found — Harkingbade" description="The requested Harkingbade page could not be found." noindex>
-  <section class="not-found section--coral"><div class="container"><p class="code">404 / NO MATCH</p><h1>This path has<br /><em>no useful answer.</em></h1><p class="lede">The page may have moved, been retired, or never existed. Unrelated legacy URLs are deliberately not redirected to the homepage.</p><div class="button-row"><a class="button" href="/">Return home</a><a class="button button--ghost" href="/insights/">Browse insights</a></div></div></section>
-</BaseLayout>
-<style>
-  .not-found { min-height: 75vh; padding-block: clamp(6rem, 14vw, 12rem); background: var(--coral); }
-  .code { margin-bottom: 1rem; font-family: var(--mono); font-weight: 900; }
-  h1 em { color: var(--paper-2); }
-  .lede { margin-top: 2rem; }
-</style>
+<BaseLayout title="Page not found — Harkingbade" noindex><section class="hero hero--dark"><div class="container hero-copy"><p class="eyebrow">404 / placeholder</p><h1>Nothing here yet.</h1><a class="button button--acid" href="/">Return home →</a></div></section></BaseLayout>

@@ -1,7 +1,4 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
+import PlaceholderPage from '../components/PlaceholderPage.astro';
 ---
-<BaseLayout title={`Terms — ${site.name}`} description="Working website and resource terms for Harkingbade.">
-  <article class="page-hero narrow prose"><p class="eyebrow">Legal</p><h1>Terms</h1><div class="notice"><strong>Working launch terms</strong>Professional legal review is required before paid services, products, sponsorships, affiliate programs, or user accounts launch.</div><h2>Informational content</h2><p>Site content describes general product, marketing, brand, growth, development, and business practices. It is not legal, financial, security, or other regulated professional advice.</p><h2>Working resources</h2><p>Free canvases and checklists may be used and adapted for personal or internal business work with attribution. They may not be resold, republished as a competing resource, or represented as another party's original work.</p><h2>No guaranteed outcome</h2><p>Examples, frameworks, audits, and experiments do not guarantee traffic, rankings, employment, conversion, or revenue. Outcomes depend on context, evidence, implementation, market behaviour, and external platforms.</p><h2>Accuracy and updates</h2><p>Material updates are dated where practical. External requirements and platform behaviour can change. Verify current official guidance before making consequential decisions.</p><h2>Contact</h2><p>Questions may be sent to <a href={`mailto:${site.email}`}>{site.email}</a>.</p><h2>Last updated</h2><p>August 16, 2026.</p></article>
-</BaseLayout>
+<PlaceholderPage eyebrow="Legal / placeholder" title="Terms content pending." description="The previous terms copy has been removed and will be replaced before production launch." cards={[{ label: 'Reserved', title: 'Terms of use', body: 'Placeholder for reviewed terms text.' }]} />

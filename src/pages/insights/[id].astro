@@ -1,33 +1,6 @@
 ---
-import { getCollection, render, type CollectionEntry } from 'astro:content';
-import ArticleLayout from '../../layouts/ArticleLayout.astro';
-
-export async function getStaticPaths() {
-  const entries = await getCollection('insight', ({ data }) => !data.draft);
-  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
-}
-
-interface Props { entry: CollectionEntry<'insight'> }
-const { entry } = Astro.props;
-const { Content } = await render(entry);
+import { getCollection } from 'astro:content';
+import PlaceholderPage from '../../components/PlaceholderPage.astro';
+export async function getStaticPaths() { const entries = await getCollection('insight', ({ data }) => !data.draft); return entries.map((entry) => ({ params: { id: entry.id } })); }
 ---
-
-<ArticleLayout
-  title={entry.data.title}
-  description={entry.data.description}
-  publishedAt={entry.data.publishedAt}
-  updatedAt={entry.data.updatedAt}
-  pillar={entry.data.pillar}
-  evidenceType={entry.data.evidenceType}
-  status={entry.data.status}
-  canonical={entry.data.canonical}
-  sources={entry.data.sources}
->
-  <Content />
-  {entry.data.sources.length > 0 && (
-    <section>
-      <h2>Sources</h2>
-      <ul>{entry.data.sources.map((source) => <li><a href={source} rel="noreferrer">{source}</a></li>)}</ul>
-    </section>
-  )}
-</ArticleLayout>
+<PlaceholderPage eyebrow="Field note / placeholder" title="Article content removed." description="This route is reserved for the new editorial system. The previous article copy has been removed." cards={[{ label: 'Reserved', title: 'Observation', body: 'Placeholder for the signal worth sharing.' }, { label: 'Reserved', title: 'Method', body: 'Placeholder for the reasoning and evidence.' }, { label: 'Reserved', title: 'Application', body: 'Placeholder for what a reader can use.' }]} />

@@ -1,6 +1,0 @@
----
-import { getCollection } from 'astro:content';
-import PlaceholderPage from '../../components/PlaceholderPage.astro';
-export async function getStaticPaths() { const entries = await getCollection('work', ({ data }) => !data.draft); return entries.map((entry) => ({ params: { id: entry.id } })); }
----
-<PlaceholderPage eyebrow="Proof / placeholder" title="Case study content removed." description="This route is reserved for the new evidence model. The previous case-study copy has been removed." cards={[{ label: 'Reserved', title: 'Context', body: 'Placeholder for the problem and constraints.' }, { label: 'Reserved', title: 'Decisions', body: 'Placeholder for the choices and shipped work.' }, { label: 'Reserved', title: 'Evidence', body: 'Placeholder for outcomes and learning.' }]} />

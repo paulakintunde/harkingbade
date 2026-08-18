@@ -1,25 +1,30 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import StageGrid from '../components/StageGrid.astro';
-
-const routes = [
-  { number: '01', title: 'Solutions', body: 'Placeholder for product, marketing, brand, content, and web support.', href: '/services/' },
-  { number: '02', title: 'Proof', body: 'Placeholder for selected work, experiments, and evidence.', href: '/work/' },
-  { number: '03', title: 'Field notes', body: 'Placeholder for practical thinking about product and growth.', href: '/insights/' },
-  { number: '04', title: 'Lab', body: 'Placeholder for motion, AI, and interactive prototypes.', href: '/lab/' },
-];
 ---
-<BaseLayout>
-  <section class="hero hero--dark">
-    <div class="container hero-grid">
-      <div class="hero-copy"><p class="eyebrow">Harkingbade / opportunity lab</p><h1>Make the next useful move <em>visible.</em></h1><p class="lede">A placeholder home for product, brand, marketing, content, ecommerce, web development, and experiments.</p><div class="button-row"><a class="button button--acid" href="#routes">Choose a route ↓</a><a class="button button--ghost" href="/contact/">Start a project ↗</a></div></div>
-      <div class="panel"><div class="panel-header"><span>Signal preview</span><span>CSS / Remotion</span></div><div class="motion-preview" data-remotion-composition="OpportunitySignal" aria-label="Animated signal preview"><div class="motion-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="motion-stage"><span>INPUT</span><strong>an unfinished idea</strong><b>→</b><span>OUTPUT</span><strong>a clearer next move</strong></div><span class="motion-label">motion system / placeholder</span></div></div>
-    </div>
-  </section>
-  <section class="section section--white" id="routes"><div class="container"><SectionHeading eyebrow="Start here" title="A simple system for a many-skilled practice." description="The structure is intentionally small for now. Each route becomes a content and revenue system in the next phase." /><div class="route-grid">{routes.map((route) => <article class="route-card"><div class="route-top"><span>{route.number}</span><span>↗</span></div><div><h3><a href={route.href}>{route.title}</a></h3><p>{route.body}</p></div><a class="route-link" href={route.href}>Open placeholder →</a></article>)}</div></div></section>
-  <section class="section section--dark"><div class="container"><SectionHeading eyebrow="Proof rail" title="Evidence will live here." description="Placeholder cards make room for selected case studies, measurable outcomes, and honest learning logs." /><div class="proof-rail"><article><span class="label">Case 01</span><h3>Placeholder case study</h3><p>Problem, decision, shipped work, signal.</p></article><article><span class="label">Case 02</span><h3>Placeholder experiment</h3><p>Hypothesis, test, result, next move.</p></article><article><span class="label">Case 03</span><h3>Placeholder capability</h3><p>Role, context, contribution, evidence.</p></article></div></div></section>
-  <section class="section section--acid"><div class="container"><SectionHeading eyebrow="Working method" title="Notice → shape → ship." description="The future content system will explain how research, positioning, design, build, and distribution connect." /><StageGrid /></div></section>
-  <section class="section"><div class="container"><SectionHeading eyebrow="Lab" title="Motion and prototypes belong in the system." description="Remotion compositions, interactive demos, and small tools will make the skill range tangible." /><div class="placeholder-grid"><article class="placeholder-card"><span class="label">Motion</span><h3>Opportunity signal</h3><p>Placeholder for a rendered Remotion sequence.</p></article><article class="placeholder-card"><span class="label">Prototype</span><h3>Interactive tool</h3><p>Placeholder for a browser-based experiment.</p></article><article class="placeholder-card"><span class="label">Writing</span><h3>Field note</h3><p>Placeholder for a practical point of view.</p></article></div></div></section>
-  <section class="section section--dark"><div class="container stack"><p class="eyebrow">Next move</p><h2>Bring one useful question.</h2><p class="lede">The content, offers, and monetization layers come after the foundation feels like Harkingbade.</p><div class="button-row"><a class="button button--acid" href="/contact/">Start a project ↗</a><a class="button button--ghost" href="/about/">See the placeholder profile</a></div></div></section>
-</BaseLayout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Harkingbade</title>
+    <meta name="description" content="Harkingbade is a quiet placeholder for a new practice spanning product, brand, marketing, content, and web work." />
+    <link rel="canonical" href="https://harkingbade.com/" />
+    <meta property="og:image" content="https://harkingbade.com/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <main>
+      <p>Harkingbade</p>
+      <h1>Coming soon.</h1>
+      <p>A new home for product, brand, marketing, content, and web work.</p>
+    </main>
+  </body>
+</html>
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(html), :global(body) { margin: 0; min-height: 100%; background: #fff; }
+  :global(body) { color: #111; font-family: Arial, Helvetica, sans-serif; }
+  main { width: min(100% - 3rem, 42rem); margin: 0 auto; padding: 18vh 0; }
+  p { margin: 0 0 1.5rem; font-size: 1rem; line-height: 1.5; }
+  p:first-child { margin-bottom: 8rem; font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  h1 { margin: 0 0 1.5rem; font-size: clamp(3rem, 10vw, 7rem); font-weight: 400; letter-spacing: -.07em; line-height: .9; }
+</style>

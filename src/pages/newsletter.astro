@@ -1,7 +1,0 @@
----
-import BaseLayout from '../layouts/BaseLayout.astro';
-import NewsletterForm from '../components/NewsletterForm.astro';
-import { site } from '../data/site';
-const enabled = import.meta.env.PUBLIC_NEWSLETTER_ENABLED === 'true';
----
-<BaseLayout title={`Newsletter — ${site.name}`}><section class="hero hero--dark"><div class="container hero-copy"><p class="eyebrow">Field note / placeholder</p><h1>One useful idea, attached to the work.</h1><p class="lede">The publishing system is paused while the new positioning and delivery path are rebuilt.</p>{enabled ? <NewsletterForm /> : <p class="panel">Email signup will open after delivery, consent, and unsubscribe checks are complete. <a href="/rss.xml">Follow the RSS feed →</a></p>}</div></section></BaseLayout>

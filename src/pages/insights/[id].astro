@@ -1,6 +1,0 @@
----
-import { getCollection } from 'astro:content';
-import PlaceholderPage from '../../components/PlaceholderPage.astro';
-export async function getStaticPaths() { const entries = await getCollection('insight', ({ data }) => !data.draft); return entries.map((entry) => ({ params: { id: entry.id } })); }
----
-<PlaceholderPage eyebrow="Field note / placeholder" title="Article content removed." description="This route is reserved for the new editorial system. The previous article copy has been removed." cards={[{ label: 'Reserved', title: 'Observation', body: 'Placeholder for the signal worth sharing.' }, { label: 'Reserved', title: 'Method', body: 'Placeholder for the reasoning and evidence.' }, { label: 'Reserved', title: 'Application', body: 'Placeholder for what a reader can use.' }]} />
